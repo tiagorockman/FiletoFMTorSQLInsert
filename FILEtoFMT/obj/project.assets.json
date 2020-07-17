@@ -6071,23 +6071,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jose.sousa1\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\tiago\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jose.sousa1\\source\\repos\\FILEtoFMT\\FILEtoFMT\\FILEtoFMT.csproj",
+      "projectUniqueName": "C:\\Users\\tiago\\Documents\\Projetos\\FiletoFMTorSQLInsert\\FILEtoFMT\\FILEtoFMT.csproj",
       "projectName": "FILEtoFMT",
-      "projectPath": "C:\\Users\\jose.sousa1\\source\\repos\\FILEtoFMT\\FILEtoFMT\\FILEtoFMT.csproj",
-      "packagesPath": "C:\\Users\\jose.sousa1\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jose.sousa1\\source\\repos\\FILEtoFMT\\FILEtoFMT\\obj\\",
+      "projectPath": "C:\\Users\\tiago\\Documents\\Projetos\\FiletoFMTorSQLInsert\\FILEtoFMT\\FILEtoFMT.csproj",
+      "packagesPath": "C:\\Users\\tiago\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\tiago\\Documents\\Projetos\\FiletoFMTorSQLInsert\\FILEtoFMT\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\jose.sousa1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\tiago\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6134,7 +6130,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

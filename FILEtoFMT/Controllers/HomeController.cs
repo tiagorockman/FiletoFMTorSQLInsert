@@ -12,8 +12,10 @@ using System.Text;
 
 namespace FILEtoFMT.Controllers
 {
+    
     public class HomeController : Controller
     {
+  
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -37,11 +39,13 @@ namespace FILEtoFMT.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public async Task<IActionResult> GenerateFMTAsync(IFormFile filename, string delimiter)
+        public async Task<IActionResult> GenerateFMTAsync(IFormFile filename, string delimiter, string lineBreak)
         {
-            string result = await Core.ReadFile(filename, delimiter);
+            await Core.ReadFile(filename, delimiter, lineBreak);
+            TempData["Confirmacao"] = "Arquivo criado com sucesso";
 
-            return View();
+
+            return View("Index");
         }
 
         
