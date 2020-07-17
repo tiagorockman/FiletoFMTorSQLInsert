@@ -1,0 +1,38 @@
+﻿@model FILEtoFMT.Models.Arquivo
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<h4>Arquivo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form enctype="multipart/form-data" asp-action="GenerateFMT">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="filename" class="control-label">Selecione o Arquivo</label>
+                <input type="file" asp-for="filename" class="form-control" />
+                <span asp-validation-for="filename" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="delimiter" class="control-label">Delimitador</label>
+                <input asp-for="delimiter" class="form-control" />
+                <span asp-validation-for="delimiter" name="filename" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
