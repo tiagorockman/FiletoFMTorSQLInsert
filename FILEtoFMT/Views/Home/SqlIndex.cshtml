@@ -1,0 +1,98 @@
+﻿@model FILEtoFMT.Models.SqlGenerator
+
+@{
+    ViewData["Title"] = "Gerador SQL";
+}
+
+<h1>Gerador SQL</h1>
+
+<h4>Configurações</h4>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form enctype="multipart/form-data" asp-action="SqlGenerate">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="form-check-label">
+                        <input class="form-check-input" onchange="createTableChecked(event)" asp-for="GenerateCreateTable" /> @Html.DisplayNameFor(model => model.GenerateCreateTable)
+                    </label>
+                </div>
+                <div class="col-sm-4">
+                    <label class="form-check-label">
+                        <input class="form-check-input" onchange="hasHeaderChecked(event)" asp-for="HasHeader" /> @Html.DisplayNameFor(model => model.HasHeader)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="csvFile" class="control-label"></label>
+                <input asp-for="csvFile" type="file" class="form-control" />
+                <span asp-validation-for="csvFile" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label asp-for="delimiter" class="control-label"></label>
+                    <input asp-for="delimiter" class="form-control" />
+                    <span asp-validation-for="delimiter" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Gerar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="control-label">
+    @if (TempData.Peek("Confirmacao") != null)
+    {
+        <h6 class="alert alert-success">@TempData.Peek("Confirmacao")</h6>
+    }
+</div>
+
+<div class="control-label">
+    @if (TempData.Peek("Caminho") != null)
+    {
+        <h6 class="alert alert-success">@TempData.Peek("Caminho")</h6>
+    }
+</div>
+
+<div class="control-label">
+    @if (TempData.Peek("Erro") != null)
+    {
+        <h6 class="alert alert-danger">@TempData.Peek("Erro")</h6>
+    }
+</div>
+
+
+<div class="control-label">
+    @if (TempData.Peek("ParcialErrors") != null)
+    {
+        <h6 class="alert alert-danger">@TempData.Peek("ParcialErrors")</h6>
+    }
+</div>
+
+<div class="control-label">
+    @if (TempData.Peek("CaminhoParcialErros") != null)
+    {
+        <h6 class="alert alert-danger">@TempData.Peek("CaminhoParcialErros")</h6>
+    }
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function createTableChecked(event) {
+            $('#HasHeader')[0].checked = event.target.checked;
+        }
+        function hasHeaderChecked(event) {
+            if ($('#GenerateCreateTable')[0].checked && !event.target.checked) {
+                alert("Para realizar a criação da tabela é necessário ter cabeçalho");
+                $('#HasHeader')[0].checked = true;
+            }
+        }
+    </script>
+
+
+}

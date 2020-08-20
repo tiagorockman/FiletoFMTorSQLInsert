@@ -38,11 +38,26 @@
 </div>
 
 <div class="control-label">
-    @if (TempData["Confirmacao"] != null)
+    @if (TempData.Peek("Confirmacao") != null)
     {
-        <h6 class="alert alert-success">@TempData["Confirmacao"]</h6>
+        <h6 class="alert alert-success">@TempData.Peek("Confirmacao")</h6>
     }
 </div>
+
+<div class="control-label">
+    @if (TempData.Peek("Caminho") != null)
+    {
+        <h6 class="alert alert-success">@TempData.Peek("Caminho")</h6>
+    }
+</div>
+
+<div class="control-label">
+    @if (TempData.Peek("Erro") != null)
+    {
+        <h6 class="alert alert-danger">@TempData.Peek("Erro")</h6>
+    }
+</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

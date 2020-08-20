@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
@@ -8,10 +10,11 @@ using System.Text;
 namespace FILEtoFMT.Models
 {
     public class Arquivo
-    {
+    {       
+
         [Required(ErrorMessage ="Favor selecionar o Arquivo")]
 
-        public string filename { get; set; }
+        public IFormFile filename { get; set; }
         
         [Required(ErrorMessage ="Favor definir o delimitador")]
         public string delimiter { get; set; }
@@ -21,22 +24,29 @@ namespace FILEtoFMT.Models
 
     }
 
-    public class ArquivoInfo 
+    public  class ArquivoInfo 
     {
-        public List<string> cabecalho { get; set; }
-        public string file  { get; set; }
-        public string caminho { get; set; }
-        public int totalLinhas { get; set; }
+        public  List<string> cabecalho { get; set; }
+        public  string file  { get; set; }
+        public  string caminho { get; set; }
+        public  int totalLinhas { get; set; }
+        public string Mensagem { get; set; }
+        public bool erro { get; set; }
+        public string msgParcialErros { get; set; }
+        public string caminhoParcialErros { get; set; }
 
     }
 
-    public interface ICSVReader
+    public  interface ICSVReader
     {
         ArquivoInfo lerArquivo(StringBuilder stringBuilder, string delimiter);
     }
 
     public class CsvReader : ICSVReader
     {
+        [TempData]
+        public string Caminho { get; set; }
+
         public ArquivoInfo lerArquivo(StringBuilder stringBuilder, string delimiter)
         {
             ArquivoInfo arquivoInfo = new ArquivoInfo();
@@ -44,8 +54,9 @@ namespace FILEtoFMT.Models
             arquivoInfo.file = "file.fmt";
             arquivoInfo.caminho = Path.GetFullPath(arquivoInfo.file); ;
             arquivoInfo.totalLinhas = arquivoInfo.cabecalho.Count;
-
+            Caminho = arquivoInfo.caminho;
             return arquivoInfo;
         }
     }
+ 
 }

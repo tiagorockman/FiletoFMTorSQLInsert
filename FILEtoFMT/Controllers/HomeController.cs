@@ -9,15 +9,16 @@ using FILEtoFMT.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Text;
+using Microsoft.Extensions.Options;
 
 namespace FILEtoFMT.Controllers
 {
-    
+
     public class HomeController : Controller
-    {
-  
+    {        
         private readonly ILogger<HomeController> _logger;
 
+        
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -28,24 +29,52 @@ namespace FILEtoFMT.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public async Task<IActionResult> GenerateFMTAsync(IFormFile filename, string delimiter, string lineBreak)
+        public async Task<IActionResult> GenerateFMTAsync(Arquivo arquivo)
         {
-            await Core.ReadFile(filename, delimiter, lineBreak);
-            TempData["Confirmacao"] = "Arquivo criado com sucesso";
-
+           var _arquivoInfo = await Core.StartGenerateFMT(arquivo.filename, arquivo.delimiter, arquivo.lineBreak);
+            if (!_arquivoInfo.erro)
+            {
+                TempData["Confirmacao"] = _arquivoInfo.Mensagem;
+                TempData["Caminho"] = _arquivoInfo.caminho;
+            } else
+            {
+                TempData["Erro"] = _arquivoInfo.Mensagem;
+            }             
 
             return View("Index");
+        }
+
+        public IActionResult SQLIndex()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> SqlGenerate(SqlGenerator sqlGenerator)
+        {
+            var _arquivoInfo = await Core.StartGenerateSQL(sqlGenerator);
+            if (!_arquivoInfo.erro)
+            {
+                TempData["Confirmacao"] = _arquivoInfo.Mensagem;
+                TempData["Caminho"] = _arquivoInfo.caminho;
+            }
+            else
+            {
+                TempData["Erro"] = _arquivoInfo.Mensagem;
+            }
+
+            if (!String.IsNullOrEmpty(_arquivoInfo.msgParcialErros))
+            {
+                TempData["ParcialErrors"] = _arquivoInfo.msgParcialErros;
+                TempData["CaminhoParcialErros"] = _arquivoInfo.caminho;
+            }
+
+            return View("SQLIndex");
         }
 
         
