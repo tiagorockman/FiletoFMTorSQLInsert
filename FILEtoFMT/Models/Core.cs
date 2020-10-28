@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -236,7 +232,7 @@ namespace FILEtoFMT.Models
                                 if (columnTable[i].TamanhoCampo < rows[i].Length)
                                     columnTable[i].TamanhoCampo = rows[i].Length;
 
-                            LINHAS_INSERT += $"'{rows[i]}',";
+                            LINHAS_INSERT += $"'{rows[i].Replace("'", "''")}',";
                         }
                         // remove ultimo caractere de uma string e fecha parentese
                         LINHAS_INSERT = LINHAS_INSERT.Remove(LINHAS_INSERT.Length - 1, 1);
